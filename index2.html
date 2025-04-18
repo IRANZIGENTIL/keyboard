@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenovo Inspired Keyboard</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .keyboard-container {
+            background-color: #222;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .row {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .key {
+            background-color: #444;
+            color: #eee;
+            border: none;
+            border-radius: 4px;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            min-width: 40px;
+            box-sizing: border-box;
+            user-select: none; /* Prevent text selection on click */
+        }
+
+        .key.space {
+            min-width: 150px;
+        }
+
+        .key.shift,
+        .key.ctrl,
+        .key.alt,
+        .key.tab,
+        .key.capslock,
+        .key.enter,
+        .key.backspace {
+            padding: 15px 25px;
+            font-size: 14px;
+        }
+
+        .key.function {
+            background-color: #555;
+            font-size: 12px;
+        }
+
+        .key:hover {
+            background-color: #555;
+        }
+
+        .key:active {
+            background-color: #666;
+        }
+
+        #output {
+            background-color: #333;
+            color: #eee;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            min-width: 400px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard-container">
+        <div id="output"></div>
+        <div class="row">
+            <button class="key function">Fn</button>
+            <button class="key function">Ctrl</button>
+            <button class="key function">Alt</button>
+            <button class="key">Q</button>
+            <button class="key">W</button>
+            <button class="key">E</button>
+            <button class="key">R</button>
+            <button class="key">T</button>
+            <button class="key">Y</button>
+            <button class="key">U</button>
+            <button class="key">I</button>
+            <button class="key">O</button>
+            <button class="key">P</button>
+        </div>
+        <div class="row">
+            <button class="key capslock">Caps</button>
+            <button class="key">A</button>
+            <button class="key">S</button>
+            <button class="key">D</button>
+            <button class="key">F</button>
+            <button class="key">G</button>
+            <button class="key">H</button>
+            <button class="key">J</button>
+            <button class="key">K</button>
+            <button class="key">L</button>
+            <button class="key enter">Enter</button>
+        </div>
+        <div class="row">
+            <button class="key shift">Shift</button>
+            <button class="key">Z</button>
+            <button class="key">X</button>
+            <button class="key">C</button>
+            <button class="key">V</button>
+            <button class="key">B</button>
+            <button class="key">N</button>
+            <button class="key">M</button>
+            <button class="key">,</button>
+            <button class="key">.</button>
+            <button class="key">/</button>
+            <button class="key shift">Shift</button>
+        </div>
+        <div class="row">
+            <button class="key ctrl">Ctrl</button>
+            <button class="key function">Fn</button>
+            <button class="key function">Win</button>
+            <button class="key alt">Alt</button>
+            <button class="key space"></button>
+            <button class="key alt">Alt</button>
+            <button class="key function">Menu</button>
+            <button class="key ctrl">Ctrl</button>
+        </div>
+    </div>
+
+    <script>
+        const keys = document.querySelectorAll('.key');
+        const output = document.getElementById('output');
+        let currentOutput = '';
+
+        keys.forEach(key => {
+            key.addEventListener('click', function() {
+                const keyValue = this.textContent;
+
+                if (keyValue === 'Caps') {
+                    this.classList.toggle('active'); // Simple visual feedback for Caps Lock
+                } else if (keyValue === 'Shift') {
+                    this.classList.toggle('active'); // Simple visual feedback for Shift
+                } else if (keyValue === 'Enter') {
+                    currentOutput += '\n';
+                } else if (keyValue === 'Space' || this.classList.contains('space')) {
+                    currentOutput += ' ';
+                } else if (keyValue === 'DEL' || keyValue === 'Backspace') {
+                    currentOutput = currentOutput.slice(0, -1);
+                } else if (!this.classList.contains('function') && !this.classList.contains('ctrl') && !this.classList.contains('alt')) {
+                    currentOutput += keyValue;
+                }
+
+                output.textContent = currentOutput;
+            });
+        });
+    </script>
+</body>
+</html>
